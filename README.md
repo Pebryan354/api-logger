@@ -1,6 +1,6 @@
-# API Logger (Go Library)
+# API Logger
 
-Library Go untuk mencatat riwayat pemanggilan API eksternal (`ResponseAPI`) dan penerimaan callback/webhook sistem (`ResponseCallback`) ke database menggunakan [GORM](https://gorm.io).
+Library untuk mencatat riwayat pemanggilan API eksternal (`ResponseAPI`) dan penerimaan callback/webhook sistem (`ResponseCallback`) ke database menggunakan [GORM](https://gorm.io).
 
 Library ini dirancang fleksibel untuk berbagai database yang didukung GORM (**MariaDB**, **MySQL**, **PostgreSQL**, **SQLite**, dll), serta dilengkapi dengan **AutoMigrate** otomatis dan nama tabel bawaan yang aman agar tidak bentrok dengan tabel aplikasi utama.
 
@@ -65,10 +65,10 @@ logger, err := apilogger.New(db,
 	// Ubah nama tabel jika ingin kustom
 	apilogger.WithAPITableName("custom_response_api"),
 	apilogger.WithCallbackTableName("custom_response_callback"),
-	
+
 	// Nonaktifkan automigrate jika migrasi diatur terpisah
 	apilogger.WithAutoMigrate(true),
-	
+
 	// Aktifkan mode asinkron (background goroutine)
 	apilogger.WithAsync(true),
 	apilogger.WithErrorHandler(func(err error) {
@@ -146,6 +146,7 @@ if err != nil {
 ### 4. Helper Tambahan
 
 #### Generate cURL Langsung dari `*http.Request`
+
 ```go
 req, _ := http.NewRequest("POST", "https://api.example.com", body)
 curlString := apilogger.BuildCurlFromRequest(req)
@@ -153,7 +154,9 @@ curlString := apilogger.BuildCurlFromRequest(req)
 ```
 
 #### Helper `ToJSON`
+
 Mengubah struct, slice, atau map menjadi string JSON secara aman:
+
 ```go
 jsonStr := apilogger.ToJSON(myPayload)
 ```
